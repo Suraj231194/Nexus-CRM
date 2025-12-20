@@ -16,7 +16,7 @@ const navigation = [
   {
     title: "Sales",
     items: [
-      { label: "Leads", href: "/leads", icon: Target, badge: "128" },
+      { label: "Leads", href: "/leads", icon: Target },
       { label: "Accounts", href: "/accounts", icon: Building2 },
       { label: "Deals", href: "/deals", icon: Kanban },
       { label: "Pipeline", href: "/pipeline", icon: TrendingUp },

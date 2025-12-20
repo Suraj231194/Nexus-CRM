@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState, useRef } from "react";
 import { AppLayout } from "@/components/layout/AppLayout";
 import { AppHeader } from "@/components/layout/AppHeader";
 import { MetricCard } from "@/components/dashboard/MetricCard";
@@ -7,14 +8,54 @@ import { RevenueChart } from "@/components/dashboard/RevenueChart";
 import { PipelineChart } from "@/components/dashboard/PipelineChart";
 import { ActivityFeed } from "@/components/dashboard/ActivityFeed";
 import { TopDeals } from "@/components/dashboard/TopDeals";
-import { Button } from "@/components/ui/button";
-import { DollarSign, Users, Target, TrendingUp, Plus, Download } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase";
-import { useEffect } from "react";
-import { useAuth } from "@/hooks/useAuth";
+import { Button } from "@/components/ui/button";
+import { DollarSign, Users, Target, TrendingUp, Plus, Download } from "lucide-react";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
+import { toast } from "sonner";
+
 export default function Dashboard() {
   const { user } = useAuth();
+  const [isLiveMode, setIsLiveMode] = useState(false);
+
+  // Simulation Logic: Inject random deals when Live Mode is active
+  useEffect(() => {
+    let interval;
+    if (isLiveMode && user?.id) {
+      toast.info("Live Mode Active: Simulating real-time transactions...", { id: "live-mode-toast", duration: Infinity });
+
+      interval = setInterval(async () => {
+        const companies = ["Acme Corp", "Globex", "Soylent Corp", "Initech", "Stark Ind", "Wayne Ent"];
+        const randomValue = Math.floor(Math.random() * 15000) + 2000;
+
+        // Insert a "Won" deal to impact revenue immediately
+        const { error } = await supabase.from("deals").insert({
+          title: `Live Deal: ${companies[Math.floor(Math.random() * companies.length)]}`,
+          value: randomValue,
+          stage: "won",
+          probability: 100,
+          user_id: user.id,
+          created_at: new Date().toISOString()
+        });
+
+        if (error) {
+          console.error("Simulation error:", error);
+          toast.error("Simulation paused due to error", { id: "live-mode-toast" });
+          setIsLiveMode(false);
+        }
+      }, 5000); // New deal every 5 seconds
+    } else {
+      toast.dismiss("live-mode-toast");
+    }
+
+    return () => {
+      clearInterval(interval);
+      toast.dismiss("live-mode-toast");
+    };
+  }, [isLiveMode, user]);
   // Fetch deals with real-time updates
   const { data: deals = [], refetch: refetchDeals } = useQuery({
     queryKey: ["dashboard-deals"],
@@ -103,16 +144,32 @@ export default function Dashboard() {
     { stage: "Negotiation", value: deals.filter(d => d.stage === "negotiation").reduce((s, d) => s + Number(d.value || 0), 0), count: deals.filter(d => d.stage === "negotiation").length },
     { stage: "Won", value: deals.filter(d => d.stage === "won").reduce((s, d) => s + Number(d.value || 0), 0), count: deals.filter(d => d.stage === "won").length },
   ];
-  // Revenue data (simulated monthly based on deals)
+  // Revenue data (Real data aggregation)
   const currentMonth = new Date().getMonth();
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+  // Initialize monthly data
+  const monthlyRevenue = new Array(12).fill(0);
+
+  deals.forEach(deal => {
+    if (deal.stage === "won" && deal.created_at) {
+      const date = new Date(deal.created_at);
+      const monthIndex = date.getMonth();
+      // Only include if within the current calendar year or last 12 months logic
+      // For simplicity/demo: map to the month index regardless of year (assuming < 1 year data)
+      monthlyRevenue[monthIndex] += Number(deal.value || 0);
+    }
+  });
+
   const revenueData = months.slice(0, currentMonth + 1).map((month, index) => {
-    const baseRevenue = totalRevenue > 0 ? totalRevenue / (currentMonth + 1) : 50000;
-    const variance = 0.8 + Math.random() * 0.4;
+    // Target is arbitrarily set to 1.2x of actual or a fixed base if actual is 0
+    const actual = monthlyRevenue[index];
+    const target = Math.max(actual * 1.2, 50000);
+
     return {
       month,
-      revenue: Math.round(baseRevenue * variance * (index + 1) / (currentMonth + 1)),
-      target: Math.round(baseRevenue * 1.1),
+      revenue: actual,
+      target: Math.round(target),
     };
   });
   // Top deals
@@ -150,6 +207,10 @@ export default function Dashboard() {
   };
   return (<>
     <AppHeader title="Dashboard" subtitle={`Welcome back${user?.email ? `, ${user.email.split('@')[0]}` : ''}. Here's what's happening today.`} actions={<div className="flex items-center gap-2">
+      <div className="flex items-center gap-3 bg-card border border-border px-3 py-1.5 rounded-lg mr-2">
+        <Switch id="live-mode" checked={isLiveMode} onCheckedChange={setIsLiveMode} />
+        <Label htmlFor="live-mode" className="text-sm font-medium cursor-pointer">Live Mode</Label>
+      </div>
       <Button variant="outline" size="sm">
         <Download className="h-4 w-4" />
         Export

@@ -34,7 +34,7 @@ const stageLabels = {
 export default function Deals() {
   const [search, setSearch] = useState("");
   const [stageFilter, setStageFilter] = useState("all");
-  const { data: deals = [], refetch } = useQuery({
+  const { data: deals = [], refetch, isLoading } = useQuery({
     queryKey: ["deals", stageFilter],
     queryFn: async () => {
       let query = supabase.from("deals").select("*").order("created_at", { ascending: false });
@@ -61,7 +61,7 @@ export default function Deals() {
   }, [refetch]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
-  const filteredDeals = deals.filter((deal) => deal.name.toLowerCase().includes(search.toLowerCase()));
+  const filteredDeals = deals.filter((deal) => (deal.name || "").toLowerCase().includes(search.toLowerCase()));
   const totalPages = Math.ceil(filteredDeals.length / itemsPerPage);
   const paginatedDeals = filteredDeals.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
   // Reset page when search/filter changes
@@ -250,7 +250,16 @@ export default function Deals() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {paginatedDeals.length === 0 ? (<TableRow>
+            {isLoading ? (
+              <TableRow>
+                <TableCell colSpan={6} className="h-24 text-center">
+                  <div className="flex items-center justify-center gap-2">
+                    <div className="h-4 w-4 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+                    <span className="text-muted-foreground">Loading deals...</span>
+                  </div>
+                </TableCell>
+              </TableRow>
+            ) : paginatedDeals.length === 0 ? (<TableRow>
               <TableCell colSpan={6} className="text-center py-12">
                 <Briefcase className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
                 <p className="text-muted-foreground">No deals found</p>

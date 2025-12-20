@@ -98,53 +98,145 @@ export default function Settings() {
         return;
       }
       setLoading(true);
-      toast.info("Starting data generation... this may take a moment.");
+      toast.info("Starting comprehensive data generation... this may take a moment.");
+
       const firstNames = ["James", "Mary", "John", "Patricia", "Robert", "Jennifer", "Michael", "Linda", "William", "Elizabeth", "David", "Barbara", "Richard", "Susan", "Joseph", "Jessica", "Thomas", "Sarah", "Charles", "Karen"];
       const lastNames = ["Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis", "Rodriguez", "Martinez", "Hernandez", "Lopez", "Gonzalez", "Wilson", "Anderson", "Thomas", "Taylor", "Moore", "Jackson", "Martin"];
-      const companies = ["Acme Corp", "Globex", "Soylent Corp", "Initech", "Umbrella Corp", "Stark Ind", "Wayne Ent", "Cyberdyne", "Massive Dynamic", "Hooli"];
-      const stages = ["qualified", "proposal", "negotiation", "review", "won", "lost"];
-      const leads = [];
-      const deals = [];
-      const activities = [];
-      // Generate 50 Leads
+      const companies = ["Acme Corp", "Globex", "Soylent Corp", "Initech", "Umbrella Corp", "Stark Ind", "Wayne Ent", "Cyberdyne", "Massive Dynamic", "Hooli", "Prestige Worldwide", "Dunder Mifflin", "Aperture Science", "Black Mesa", "Tyrell Corp"];
+      const industries = ["Technology", "Finance", "Healthcare", "Manufacturing", "Retail", "Services", "Real Estate", "Education"];
+      const cities = ["New York", "San Francisco", "London", "Tokyo", "Berlin", "Sydney", "Toronto", "Austin", "Chicago", "Boston"];
+
+      // 1. Generate Accounts first to get IDs
+      const accountsData = [];
       for (let i = 0; i < 50; i++) {
-        leads.push({
+        accountsData.push({
+          name: companies[Math.floor(Math.random() * companies.length)] + " " + (i + 1),
+          industry: industries[Math.floor(Math.random() * industries.length)],
+          website: `www.example${i}.com`,
+          phone: `+1-555-01${i.toString().padStart(2, '0')}`,
+          city: cities[Math.floor(Math.random() * cities.length)],
+          state: "CA",
+          annual_revenue: Math.floor(Math.random() * 10000000) + 100000,
+          employee_count: Math.floor(Math.random() * 500) + 10,
+          user_id: user.id,
+          created_at: new Date(Date.now() - Math.floor(Math.random() * 365 * 24 * 60 * 60 * 1000)).toISOString()
+        });
+      }
+
+      const { data: createdAccounts, error: accountsError } = await supabase
+        .from("accounts")
+        .insert(accountsData)
+        .select();
+
+      if (accountsError) throw accountsError;
+
+      // 2. Generate Contacts linked to Accounts
+      const contactsData = [];
+      if (createdAccounts && createdAccounts.length > 0) {
+        for (let i = 0; i < 80; i++) {
+          const randomAccount = createdAccounts[Math.floor(Math.random() * createdAccounts.length)];
+          const fName = firstNames[Math.floor(Math.random() * firstNames.length)];
+          const lName = lastNames[Math.floor(Math.random() * lastNames.length)];
+          contactsData.push({
+            first_name: fName,
+            last_name: lName,
+            email: `${fName.toLowerCase()}.${lName.toLowerCase()}${i}@example.com`,
+            phone: `+1-555-02${i.toString().padStart(2, '0')}`,
+            job_title: ["Manager", "Director", "VP", "Developer", "Sales"][Math.floor(Math.random() * 5)],
+            account_id: randomAccount.id,
+            user_id: user.id,
+            created_at: new Date(Date.now() - Math.floor(Math.random() * 365 * 24 * 60 * 60 * 1000)).toISOString()
+          });
+        }
+        await supabase.from("contacts").insert(contactsData);
+      }
+
+      // 3. Generate Leads (Leads are typically unattached to Accounts initially)
+      const leadsData = [];
+      const leadStatuses = ["new", "contacted", "qualified", "lost", "converted"];
+      const leadSources = ["Website", "LinkedIn", "Referral", "Cold Call", "Campaign"];
+
+      for (let i = 0; i < 150; i++) {
+        leadsData.push({
           first_name: firstNames[Math.floor(Math.random() * firstNames.length)],
           last_name: lastNames[Math.floor(Math.random() * lastNames.length)],
           email: `lead${Date.now()}${i}@example.com`,
           company: companies[Math.floor(Math.random() * companies.length)],
-          job_title: "Manager",
-          status: ["new", "contacted", "qualified"][Math.floor(Math.random() * 3)],
+          job_title: ["Manager", "Director", "VP", "CEO", "Founder"][Math.floor(Math.random() * 5)],
+          status: leadStatuses[Math.floor(Math.random() * leadStatuses.length)],
           score: Math.floor(Math.random() * 100),
-          source: ["Website", "LinkedIn", "Referral"][Math.floor(Math.random() * 3)],
+          source: leadSources[Math.floor(Math.random() * leadSources.length)],
+          user_id: user.id,
+          created_at: new Date(Date.now() - Math.floor(Math.random() * 365 * 24 * 60 * 60 * 1000)).toISOString()
         });
       }
-      // Generate 30 Deals
-      for (let i = 0; i < 30; i++) {
-        deals.push({
+      await supabase.from("leads").insert(leadsData);
+
+      // 4. Generate Deals
+      const dealsData = [];
+      const dealStages = ["qualified", "proposal", "negotiation", "review", "won", "lost"];
+
+      for (let i = 0; i < 100; i++) {
+        const dealValue = Math.floor(Math.random() * 50000) + 5000;
+        const dealStage = dealStages[Math.floor(Math.random() * dealStages.length)];
+        let probability = 10;
+        if (dealStage === "won") probability = 100;
+        else if (dealStage === "lost") probability = 0;
+        else if (dealStage === "negotiation") probability = 75;
+        else if (dealStage === "proposal") probability = 50;
+        else if (dealStage === "qualified") probability = 25;
+
+        dealsData.push({
           title: `${companies[Math.floor(Math.random() * companies.length)]} Deal`,
-          value: Math.floor(Math.random() * 50000) + 5000,
-          stage: stages[Math.floor(Math.random() * stages.length)],
-          probability: Math.floor(Math.random() * 100),
-          user_id: user?.id,
-          created_at: new Date(Date.now() - Math.floor(Math.random() * 90 * 24 * 60 * 60 * 1000)).toISOString() // Past 90 days
+          value: dealValue,
+          stage: dealStage,
+          probability: probability,
+          user_id: user.id,
+          created_at: new Date(Date.now() - Math.floor(Math.random() * 365 * 24 * 60 * 60 * 1000)).toISOString()
         });
       }
-      // Generate 50 Activities
-      for (let i = 0; i < 50; i++) {
-        activities.push({
-          title: "Follow up call",
-          type: ["call", "email", "meeting", "task"][Math.floor(Math.random() * 4)],
-          description: "Discussed requirements",
-          user_id: user?.id,
-          created_at: new Date(Date.now() - Math.floor(Math.random() * 30 * 24 * 60 * 60 * 1000)).toISOString()
+      await supabase.from("deals").insert(dealsData);
+
+      // 5. Generate Activities (Types: call, email, meeting, task)
+      // IMPORTANT: 'task' type drives the Tasks page
+      const activitiesData = [];
+      for (let i = 0; i < 100; i++) {
+        const type = ["call", "email", "meeting", "task"][Math.floor(Math.random() * 4)];
+        const isTask = type === "task";
+        const createdDate = new Date(Date.now() - Math.floor(Math.random() * 90 * 24 * 60 * 60 * 1000));
+
+        let dueDate = null;
+        let completedAt = null;
+
+        if (isTask) {
+          // Randomly set some as completed, some overdue, some future
+          const status = Math.random();
+          if (status < 0.4) {
+            // Completed
+            completedAt = new Date(createdDate.getTime() + 86400000).toISOString();
+            dueDate = new Date(createdDate.getTime() + 172800000).toISOString();
+          } else if (status < 0.7) {
+            // Overdue (due date in past, no completedAt)
+            dueDate = new Date(Date.now() - 86400000 * Math.floor(Math.random() * 5)).toISOString();
+          } else {
+            // Future / Pending
+            dueDate = new Date(Date.now() + 86400000 * Math.floor(Math.random() * 7)).toISOString();
+          }
+        }
+
+        activitiesData.push({
+          title: isTask ? `Task: ${["Follow up", "Prepare quote", "Review contract", "Send invoice"][Math.floor(Math.random() * 4)]}` : ["Call client", "Email update", "Demo meeting"][Math.floor(Math.random() * 3)],
+          type: type,
+          description: "Auto-generated activity",
+          user_id: user.id,
+          due_date: dueDate,
+          completed_at: completedAt,
+          created_at: createdDate.toISOString()
         });
       }
-      // Batch Insert
-      await supabase.from("leads").insert(leads);
-      await supabase.from("deals").insert(deals);
-      await supabase.from("activities").insert(activities);
-      toast.success("Successfully generated 100+ records!");
+      await supabase.from("activities").insert(activitiesData);
+
+      toast.success("Successfully generated comprehensive demo data!");
     }
     catch (error) {
       console.error("Error generating data:", error);

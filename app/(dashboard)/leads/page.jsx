@@ -39,7 +39,7 @@ export default function Leads() {
     jobTitle: "",
     source: "Website",
   });
-  const { data: leads = [], refetch } = useQuery({
+  const { data: leads = [], refetch, isLoading } = useQuery({
     queryKey: ["leads"],
     queryFn: async () => {
       const { data, error } = await supabase
@@ -267,7 +267,16 @@ export default function Leads() {
               </tr>
             </thead>
             <tbody>
-              {paginatedLeads.map((lead) => (<tr key={lead.id} className="border-b border-border last:border-0 hover:bg-muted/30 transition-colors">
+              {isLoading ? (
+                <tr className="border-b border-border last:border-0">
+                  <td colSpan={7} className="h-24 text-center">
+                    <div className="flex items-center justify-center gap-2">
+                      <div className="h-4 w-4 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+                      <span className="text-muted-foreground">Loading leads...</span>
+                    </div>
+                  </td>
+                </tr>
+              ) : paginatedLeads.map((lead) => (<tr key={lead.id} className="border-b border-border last:border-0 hover:bg-muted/30 transition-colors">
                 <td className="px-4 py-4">
                   <div className="flex items-center gap-3">
                     <div className="flex h-9 w-9 items-center justify-center rounded-full bg-muted text-sm font-medium text-muted-foreground">
