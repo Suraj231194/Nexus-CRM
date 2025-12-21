@@ -14,6 +14,16 @@ Nexus CRM is a modern, AI-powered customer relationship management platform desi
 - **Communication Hub**: Integrated messaging for team collaboration.
 - **Task Management**: To-do lists and activity tracking.
 
+### ✨ What We've Built Recently
+- **Production-Ready Landing Page**: A high-impact, 8-section landing page with:
+    -   Dynamic Hero Section with Dashboard Preview
+    -   "Trusted by" Social Proof
+    -   Detailed Feature Breakdowns (Pipeline, Analytics)
+    -   Pricing Tiers & FAQ
+- **Enhanced Sidebar**: Dynamic user profile integration with "Sign Out" functionality.
+- **In-App Test Runner**: A "Verify System" feature that allows running unit/integration tests directly from the dashboard interface (requires dev environment).
+- **Global Error Handling**: Robust error boundaries to catch and handle UI crashes gracefully.
+
 ## 🛠️ Tech Stack
 
 - **Framework**: [Next.js 14](https://nextjs.org/) (App Router)
@@ -23,6 +33,31 @@ Nexus CRM is a modern, AI-powered customer relationship management platform desi
 - **Icons**: [Lucide React](https://lucide.dev/)
 - **Charts**: [Recharts](https://recharts.org/)
 - **AI**: Google Gemini API
+- **Testing**: [Vitest](https://vitest.dev/) + [React Testing Library](https://testing-library.com/)
+
+## 🧪 Testing
+
+We use **Vitest** and **React Testing Library** for a robust, production-grade testing environment (JSX-compatible).
+
+### Running Tests
+To run the full test suite:
+
+```bash
+npm test
+```
+
+### Writing Tests
+- **Unit Tests**: Located alongside components (e.g., `components/ui/button.test.jsx`).
+- **Integration Tests**: Verify component interactions (e.g., `components/layout/AppSidebar.test.jsx`).
+
+### System Verification (In-App)
+We have implemented a **"Verify System"** feature that allows you to run these tests directly from the dashboard:
+1.  Navigate to the Dashboard Sidebar.
+2.  Click the **"Verify System"** button (flask icon) located just above your user profile.
+3.  A diagnostics dialog will open, executing the full test suite via a server-side API.
+4.  View real-time pass/fail results for all unit and integration tests.
+
+> **Note**: This feature relies on the server-side `vitest` process and requires the development environment (node_modules) to be present.
 
 ## ⚡ Getting Started
 
@@ -69,6 +104,7 @@ revenue-os-next/
 ├── app/                  # Next.js App Router pages
 │   ├── (auth)/           # Authentication pages (login, signup)
 │   ├── (dashboard)/      # Protected dashboard pages
+│   ├── error.jsx         # Global Error Boundary
 │   └── layout.js         # Root layout
 ├── components/           # Reusable React components
 │   ├── layout/           # Sidebar, Header, etc.
