@@ -1,172 +1,159 @@
-# 🚀 Revenue OS Next
+🚀 Revenue OS Next
 
-**Revenue OS Next**  
-*A modern, dark-first Next.js application for managing revenue streams with performance, scalability, and SEO in mind.*
+Revenue OS Next is a modern, production-ready Next.js application designed to manage and visualize revenue data with a strong focus on performance, scalability, UI clarity, and SEO.
+It follows a dark-first professional design system suitable for SaaS dashboards and enterprise products.
 
----
+📖 Overview
 
-## 📖 Overview
+Revenue OS Next helps businesses track and analyze revenue streams through a clean, data-dense dashboard experience.
+The application is built using Next.js App Router and integrates securely with Supabase (PostgreSQL) for backend services.
 
-Revenue OS Next is a production-ready web application designed to help businesses efficiently manage and visualize revenue data. It is built using **Next.js** and follows a **dark-first, data-dense, and professional design system** to ensure clarity, usability, and speed.
+The architecture is modular, scalable, and optimized for:
 
-The application leverages **Supabase (PostgreSQL)** for backend services and follows secure practices using **environment variables** for sensitive credentials. The architecture is modular, scalable, and optimized for both user experience and search engine visibility.
+Fast page loads
 
----
+SEO-friendly rendering
 
-## ✨ Key Features
+Clean, maintainable frontend code
 
-- 🌙 **Dark-first professional UI** with data-dense layouts  
-- ⚡ **High performance rendering** using Next.js SSR & SSG  
-- 🔐 **Secure Supabase integration** (PostgreSQL-based backend)  
-- 🧩 **Modular & scalable architecture**  
-- 🌍 **SEO-friendly pages** with server-side rendering  
-- 🧪 **Database seeding & verification utilities**  
-- 🎨 **Tailwind CSS design system**  
-- 🧠 **Reusable hooks & utilities**
+✨ Key Features
 
----
+🌙 Dark-first, professional UI
 
-### ✨ What We've Built Recently
-- **Production-Ready Landing Page**: A high-impact, 8-section landing page with:
-    -   Dynamic Hero Section with Dashboard Preview
-    -   "Trusted by" Social Proof
-    -   Detailed Feature Breakdowns (Pipeline, Analytics)
-    -   Pricing Tiers & FAQ
-- **Enhanced Sidebar**: Dynamic user profile integration with "Sign Out" functionality.
-- **In-App Test Runner**: A "Verify System" feature that allows running unit/integration tests directly from the dashboard interface (requires dev environment).
-- **Global Error Handling**: Robust error boundaries to catch and handle UI crashes gracefully.
+⚡ High-performance rendering using SSR & SSG
 
-### ✨ What We've Built Recently
-- **Production-Ready Landing Page**: A high-impact, 8-section landing page with:
-    -   Dynamic Hero Section with Dashboard Preview
-    -   "Trusted by" Social Proof
-    -   Detailed Feature Breakdowns (Pipeline, Analytics)
-    -   Pricing Tiers & FAQ
-- **Enhanced Sidebar**: Dynamic user profile integration with "Sign Out" functionality.
-- **In-App Test Runner**: A "Verify System" feature that allows running unit/integration tests directly from the dashboard interface (requires dev environment).
-- **Global Error Handling**: Robust error boundaries to catch and handle UI crashes gracefully.
+🔐 Secure authentication & database via Supabase
 
-## 🛠️ Tech Stack
+🧩 Modular, scalable component architecture
 
-- **Framework**: [Next.js 14](https://nextjs.org/) (App Router)
-- **Database**: [Supabase](https://supabase.com/) (PostgreSQL)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **Components**: [shadcn/ui](https://ui.shadcn.com/)
-- **Icons**: [Lucide React](https://lucide.dev/)
-- **Charts**: [Recharts](https://recharts.org/)
-- **AI**: Google Gemini API
-- **Testing**: [Vitest](https://vitest.dev/) + [React Testing Library](https://testing-library.com/)
-<<<<<<< HEAD
-=======
+🌍 SEO-friendly pages with Next.js
 
-## 🧪 Testing
+🎨 Tailwind CSS design system
 
-We use **Vitest** and **React Testing Library** for a robust, production-grade testing environment (JSX-compatible).
+🧠 Reusable hooks and utilities
 
-### Running Tests
-To run the full test suite:
+📊 Interactive dashboards & charts
 
-```bash
+🆕 Recent Highlights
+
+Production-Ready Landing Page
+
+Dynamic hero section with dashboard preview
+
+Feature breakdowns (Pipeline, Analytics)
+
+Pricing tiers & FAQ
+
+Social proof section
+
+Enhanced Sidebar
+
+Dynamic user profile
+
+Secure sign-out functionality
+
+Global Error Handling
+
+Error boundaries for graceful UI recovery
+
+🛠️ Tech Stack
+
+Framework: Next.js (App Router)
+
+Frontend: React.js, JavaScript, Tailwind CSS
+
+UI Components: shadcn/ui
+
+Icons: Lucide React
+
+Charts: Recharts
+
+Backend: Supabase (PostgreSQL)
+
+Auth: Supabase Auth
+
+Testing: Vitest, React Testing Library
+
+Deployment: Vercel
+
+⚙️ SEO, SSR & SSG Optimizations
+
+This project leverages Next.js rendering strategies for optimal SEO and performance.
+
+🔍 SEO Techniques
+
+Server-Side Rendering (SSR) for SEO-critical pages
+
+Static Site Generation (SSG) for stable pages
+
+Optimized metadata and clean routing
+
+Semantic HTML structure
+
+Image optimization using next/image
+
+⚡ Rendering Strategy
+
+SSR → Dashboards & dynamic revenue data
+
+SSG → Landing pages & static content
+
+CSR → Interactive components & charts
+
+🚀 Performance Optimizations
+
+Automatic code splitting with Next.js
+
+Optimized component re-renders
+
+Tailwind CSS purge for smaller bundles
+
+Reusable utility functions
+
+Custom hooks to reduce duplicate logic
+
+Secure environment variable handling
+
+🧪 Testing
+
+We use Vitest and React Testing Library for reliable testing.
+
+Run Tests
 npm test
-```
 
-### Writing Tests
-- **Unit Tests**: Located alongside components (e.g., `components/ui/button.test.jsx`).
-- **Integration Tests**: Verify component interactions (e.g., `components/layout/AppSidebar.test.jsx`).
+Test Coverage
 
-### System Verification (In-App)
-We have implemented a **"Verify System"** feature that allows you to run these tests directly from the dashboard:
-1.  Navigate to the Dashboard Sidebar.
-2.  Click the **"Verify System"** button (flask icon) located just above your user profile.
-3.  A diagnostics dialog will open, executing the full test suite via a server-side API.
-4.  View real-time pass/fail results for all unit and integration tests.
+Unit tests for UI components
 
-> **Note**: This feature relies on the server-side `vitest` process and requires the development environment (node_modules) to be present.
->>>>>>> 82532b2 (Prepare for deployment: Hide test runner in production)
+Integration tests for layouts and interactions
 
-## 🧪 Testing
+⚠️ In-app test runner is disabled in production builds.
 
-We use **Vitest** and **React Testing Library** for a robust, production-grade testing environment (JSX-compatible).
-
-### Running Tests
-To run the full test suite:
-
-```bash
-npm test
-```
-
-### Writing Tests
-- **Unit Tests**: Located alongside components (e.g., `components/ui/button.test.jsx`).
-- **Integration Tests**: Verify component interactions (e.g., `components/layout/AppSidebar.test.jsx`).
-
-### System Verification (In-App)
-We have implemented a **"Verify System"** feature that allows you to run these tests directly from the dashboard:
-1.  Navigate to the Dashboard Sidebar.
-2.  Click the **"Verify System"** button (flask icon) located just above your user profile.
-3.  A diagnostics dialog will open, executing the full test suite via a server-side API.
-4.  View real-time pass/fail results for all unit and integration tests.
-
-> **Note**: This feature relies on the server-side `vitest` process and requires the development environment (node_modules) to be present.
-
----
-
-## ⚙️ Next.js SEO, SSR & SSG Optimizations
-
-This project makes full use of **Next.js SEO and performance capabilities**:
-
-### 🔍 SEO Techniques Used
-- ✅ Server-Side Rendering (SSR) for SEO-critical pages  
-- ✅ Static Site Generation (SSG) for fast-loading dashboards & reports  
-- ✅ Optimized `<head>` metadata using `next/head`  
-- ✅ Clean URL structure with Next.js routing  
-- ✅ Semantic HTML for better search engine indexing  
-- ✅ Optimized image handling via `next/image`  
-- ✅ Environment-based configuration for production SEO
-
-### ⚡ Rendering Strategies
-- **SSR (Server-Side Rendering)**  
-  Used for pages requiring fresh data (revenue stats, dashboards) to ensure:
-  - Better SEO
-  - Faster Time-to-First-Byte (TTFB)
-
-- **SSG (Static Site Generation)**  
-  Used for stable pages like:
-  - Overview pages
-  - Documentation-style views  
-  This ensures ultra-fast load times and reduced server cost.
-
-- **Client-Side Rendering (CSR)**  
-  Used selectively for:
-  - Interactive UI components
-  - Charts & dynamic widgets
-
----
-
-## 🚀 Performance Optimizations
-
-- ⚡ Code splitting with Next.js automatic chunking  
-- 🧵 Optimized component re-renders  
-- 🎯 Tailwind CSS purge for smaller bundle size  
-- 🗂️ Reusable utility functions for consistent styling  
-- 🧠 Custom hooks to reduce duplicated logic  
-- 🔒 Secure environment variable handling
-
----
-
-## 📁 Project Structure
-
-
-
-```
+📁 Project Structure
 revenue-os-next/
-├── app/                  # Next.js App Router pages
-│   ├── (auth)/           # Authentication pages (login, signup)
-│   ├── (dashboard)/      # Protected dashboard pages
-│   ├── error.jsx         # Global Error Boundary
+├── app/                  # Next.js App Router
+│   ├── (auth)/           # Authentication routes
+│   ├── (dashboard)/      # Protected dashboard routes
+│   ├── error.jsx         # Global error boundary
 │   └── layout.js         # Root layout
-├── components/           # Reusable React components
-│   ├── layout/           # Sidebar, Header, etc.
-│   └── ui/               # Shadcn UI components
-├── lib/                  # Utilities and Supabase client
-└── public/               # Static assets
-```
+├── components/           # Reusable components
+│   ├── layout/           # Sidebar, Header
+│   └── ui/               # shadcn UI components
+├── lib/                  # Utilities & Supabase client
+├── public/               # Static assets
+└── README.md
+
+🧑‍💻 Author
+
+Suraj Pawar
+Front-End Developer | React.js | Next.js | Tailwind CSS
+
+🌐 Portfolio: https://suraj231194.github.io
+
+💼 LinkedIn: https://www.linkedin.com/in/surajpawar2311
+
+🧑‍💻 GitHub: https://github.com/Suraj231194
+
+📄 License
+
+This project is licensed for educational and portfolio use.
