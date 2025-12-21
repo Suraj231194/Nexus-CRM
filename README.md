@@ -1,135 +1,105 @@
-🚀 Revenue OS Next
+# 🚀 Revenue OS Next
 
-Revenue OS Next is a modern, production-ready Next.js application designed to manage and visualize revenue data with a strong focus on performance, scalability, UI clarity, and SEO.
-It follows a dark-first professional design system suitable for SaaS dashboards and enterprise products.
+**Revenue OS Next** is a modern, production-ready **Next.js application** designed to manage and visualize revenue data with a strong focus on **performance, scalability, UI clarity, and SEO**.  
+It follows a **dark-first professional design system**, suitable for SaaS dashboards and enterprise products.
 
-📖 Overview
+---
 
-Revenue OS Next helps businesses track and analyze revenue streams through a clean, data-dense dashboard experience.
-The application is built using Next.js App Router and integrates securely with Supabase (PostgreSQL) for backend services.
+## 📖 Overview
+
+Revenue OS Next helps businesses track and analyze revenue streams through a clean, data-dense dashboard experience.  
+The application is built using **Next.js App Router** and integrates securely with **Supabase (PostgreSQL)** for backend services.
 
 The architecture is modular, scalable, and optimized for:
 
-Fast page loads
+- Fast page loads  
+- SEO-friendly rendering  
+- Clean, maintainable frontend code  
 
-SEO-friendly rendering
+---
 
-Clean, maintainable frontend code
+## ✨ Key Features
 
-✨ Key Features
+- 🌙 Dark-first, professional UI  
+- ⚡ High-performance rendering using **SSR & SSG**  
+- 🔐 Secure authentication & database via **Supabase**  
+- 🧩 Modular, scalable component architecture  
+- 🌍 SEO-friendly pages with Next.js  
+- 🎨 Tailwind CSS design system  
+- 🧠 Reusable hooks and utilities  
+- 📊 Interactive dashboards & charts  
 
-🌙 Dark-first, professional UI
+---
 
-⚡ High-performance rendering using SSR & SSG
+## 🆕 Recent Highlights
 
-🔐 Secure authentication & database via Supabase
+### ✅ Production-Ready Landing Page
+- Dynamic hero section with dashboard preview  
+- Feature breakdowns (Pipeline, Analytics)  
+- Pricing tiers & FAQ  
+- Social proof section  
 
-🧩 Modular, scalable component architecture
+### ✅ Enhanced Sidebar
+- Dynamic user profile  
+- Secure sign-out functionality  
 
-🌍 SEO-friendly pages with Next.js
+### ✅ Global Error Handling
+- Error boundaries for graceful UI recovery  
 
-🎨 Tailwind CSS design system
+---
 
-🧠 Reusable hooks and utilities
+## 🛠️ Tech Stack
 
-📊 Interactive dashboards & charts
+- **Framework**: Next.js (App Router)  
+- **Frontend**: React.js, JavaScript, Tailwind CSS  
+- **UI Components**: shadcn/ui  
+- **Icons**: Lucide React  
+- **Charts**: Recharts  
+- **Backend**: Supabase (PostgreSQL)  
+- **Authentication**: Supabase Auth  
+- **Testing**: Vitest, React Testing Library  
+- **Deployment**: Vercel  
 
-🆕 Recent Highlights
+---
 
-Production-Ready Landing Page
+## ⚙️ SEO, SSR & SSG Optimizations
 
-Dynamic hero section with dashboard preview
+This project leverages **Next.js rendering strategies** for optimal SEO and performance.
 
-Feature breakdowns (Pipeline, Analytics)
+### 🔍 SEO Techniques
+- Server-Side Rendering (SSR) for SEO-critical pages  
+- Static Site Generation (SSG) for stable pages  
+- Optimized metadata and clean routing  
+- Semantic HTML structure  
+- Image optimization using `next/image`  
 
-Pricing tiers & FAQ
+### ⚡ Rendering Strategy
+- **SSR** → Dashboards & dynamic revenue data  
+- **SSG** → Landing pages & static content  
+- **CSR** → Interactive components & charts  
 
-Social proof section
+---
 
-Enhanced Sidebar
+## 🚀 Performance Optimizations
 
-Dynamic user profile
+- Automatic code splitting with Next.js  
+- Optimized component re-renders  
+- Tailwind CSS purge for smaller bundle sizes  
+- Reusable utility functions  
+- Custom hooks to reduce duplicate logic  
+- Secure environment variable handling  
 
-Secure sign-out functionality
+---
 
-Global Error Handling
+## 🧪 Testing
 
-Error boundaries for graceful UI recovery
+We use **Vitest** and **React Testing Library** for reliable testing.
 
-🛠️ Tech Stack
-
-Framework: Next.js (App Router)
-
-Frontend: React.js, JavaScript, Tailwind CSS
-
-UI Components: shadcn/ui
-
-Icons: Lucide React
-
-Charts: Recharts
-
-Backend: Supabase (PostgreSQL)
-
-Auth: Supabase Auth
-
-Testing: Vitest, React Testing Library
-
-Deployment: Vercel
-
-⚙️ SEO, SSR & SSG Optimizations
-
-This project leverages Next.js rendering strategies for optimal SEO and performance.
-
-🔍 SEO Techniques
-
-Server-Side Rendering (SSR) for SEO-critical pages
-
-Static Site Generation (SSG) for stable pages
-
-Optimized metadata and clean routing
-
-Semantic HTML structure
-
-Image optimization using next/image
-
-⚡ Rendering Strategy
-
-SSR → Dashboards & dynamic revenue data
-
-SSG → Landing pages & static content
-
-CSR → Interactive components & charts
-
-🚀 Performance Optimizations
-
-Automatic code splitting with Next.js
-
-Optimized component re-renders
-
-Tailwind CSS purge for smaller bundles
-
-Reusable utility functions
-
-Custom hooks to reduce duplicate logic
-
-Secure environment variable handling
-
-🧪 Testing
-
-We use Vitest and React Testing Library for reliable testing.
-
-Run Tests
+### Run Tests
+```bash
 npm test
 
-Test Coverage
 
-Unit tests for UI components
-
-Integration tests for layouts and interactions
-
-⚠️ In-app test runner is disabled in production builds.
-
-📁 Project Structure
 revenue-os-next/
 ├── app/                  # Next.js App Router
 │   ├── (auth)/           # Authentication routes
@@ -143,6 +113,7 @@ revenue-os-next/
 ├── public/               # Static assets
 └── README.md
 
+
 🧑‍💻 Author
 
 Suraj Pawar
@@ -153,7 +124,3 @@ Front-End Developer | React.js | Next.js | Tailwind CSS
 💼 LinkedIn: https://www.linkedin.com/in/surajpawar2311
 
 🧑‍💻 GitHub: https://github.com/Suraj231194
-
-📄 License
-
-This project is licensed for educational and portfolio use.
