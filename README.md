@@ -113,14 +113,21 @@ revenue-os-next/
 ├── public/               # Static assets
 └── README.md
 
+
+
+
+
+
 ---
-🧑‍💻 Author
 
-Suraj Pawar
-Front-End Developer | React.js | Next.js | Tailwind CSS
+## 🧑‍💻 Author
 
-🌐 Portfolio: https://suraj231194.github.io
+**Suraj Pawar**  
+Front-End Developer | React.js | Next.js | Tailwind CSS  
 
-💼 LinkedIn: https://www.linkedin.com/in/surajpawar2311
+🌐 **Portfolio**: [https://suraj231194.github.io](https://suraj231194.github.io)  
+💼 **LinkedIn**: [https://www.linkedin.com/in/surajpawar2311](https://www.linkedin.com/in/surajpawar2311)  
+🧑‍💻 **GitHub**: [https://github.com/Suraj231194](https://github.com/Suraj231194)
 
-🧑‍💻 GitHub: https://github.com/Suraj231194
+---
+
