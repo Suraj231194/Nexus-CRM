@@ -90,6 +90,19 @@ This project leverages **Next.js rendering strategies** for optimal SEO and perf
 - Secure environment variable handling  
 
 ---
+---
+
+## 🧑‍💻 Author
+
+**Suraj Pawar**  
+Front-End Developer | React.js | Next.js | Tailwind CSS  
+
+🌐 **Portfolio**: [https://suraj231194.github.io](https://suraj231194.github.io)  
+💼 **LinkedIn**: [https://www.linkedin.com/in/surajpawar2311](https://www.linkedin.com/in/surajpawar2311)  
+🧑‍💻 **GitHub**: [https://github.com/Suraj231194](https://github.com/Suraj231194)
+
+---
+
 
 ## 🧪 Testing
 
@@ -118,16 +131,4 @@ revenue-os-next/
 
 
 
----
-
-## 🧑‍💻 Author
-
-**Suraj Pawar**  
-Front-End Developer | React.js | Next.js | Tailwind CSS  
-
-🌐 **Portfolio**: [https://suraj231194.github.io](https://suraj231194.github.io)  
-💼 **LinkedIn**: [https://www.linkedin.com/in/surajpawar2311](https://www.linkedin.com/in/surajpawar2311)  
-🧑‍💻 **GitHub**: [https://github.com/Suraj231194](https://github.com/Suraj231194)
-
----
 
