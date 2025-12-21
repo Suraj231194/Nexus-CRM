@@ -1,4 +1,6 @@
 "use client";
+// Login page component
+
 
 import { useState } from "react";
 import Link from "next/link";
