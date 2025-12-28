@@ -4,9 +4,6 @@ export async function POST(req) {
     try {
         const { contents, model } = await req.json();
 
-        // Priority: 
-        // 1. Key passed from client (localStorage setting)
-        // 2. Server-side environment variable (GEMINI_API_KEY preferred, NEXT_PUBLIC_... fallback)
         const apiKey = req.headers.get('x-custom-api-key') ||
             process.env.GEMINI_API_KEY ||
             process.env.NEXT_PUBLIC_GEMINI_API_KEY;
@@ -18,14 +15,26 @@ export async function POST(req) {
             );
         }
 
-        const modelName = model || 'gemini-1.5-flash';
+        const primaryModel = model || 'gemini-1.5-flash';
+        const fallbackModel = 'gemini-pro';
 
-        // Call Gemini API server-side
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ contents })
-        });
+        async function callGemini(modelName) {
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ contents })
+            });
+            return response;
+        }
+
+        // Try primary model
+        let response = await callGemini(primaryModel);
+
+        // If primary failed (likely 404 not found or 400 invalid argument), try fallback
+        if (!response.ok && (response.status === 404 || response.status === 400)) {
+            console.warn(`Primary model ${primaryModel} failed with status ${response.status}. Retrying with ${fallbackModel}...`);
+            response = await callGemini(fallbackModel);
+        }
 
         const data = await response.json();
 
