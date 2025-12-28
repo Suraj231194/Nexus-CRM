@@ -22,6 +22,8 @@ import {
   LayoutDashboard
 } from "lucide-react";
 
+import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+
 const Index = () => {
   return (
     <div className="flex min-h-screen flex-col bg-background selection:bg-primary/20">
@@ -43,12 +45,45 @@ const Index = () => {
           </nav>
 
           <div className="flex items-center gap-4">
-            <Link href="/login" className="hidden sm:block">
-              <Button variant="ghost" className="text-muted-foreground hover:text-foreground">Log in</Button>
-            </Link>
-            <Link href="/signup">
-              <Button className="shadow-lg shadow-primary/20">Get Started</Button>
-            </Link>
+            <div className="hidden sm:flex items-center gap-4">
+              <Link href="/login">
+                <Button variant="ghost" className="text-muted-foreground hover:text-foreground">Log in</Button>
+              </Link>
+              <Link href="/signup">
+                <Button className="shadow-lg shadow-primary/20">Get Started</Button>
+              </Link>
+            </div>
+            
+            {/* Mobile Menu */}
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="md:hidden">
+                  <Menu className="h-5 w-5" />
+                  <span className="sr-only">Toggle menu</span>
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right">
+                <SheetHeader>
+                  <SheetTitle className="flex items-center gap-2">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
+                      <Zap className="h-4 w-4 text-primary-foreground fill-current" />
+                    </div>
+                    RevenueOS
+                  </SheetTitle>
+                </SheetHeader>
+                <div className="flex flex-col gap-4 mt-8">
+                  <Link href="#features" className="text-lg font-medium hover:text-primary transition-colors">Features</Link>
+                  <Link href="#testimonials" className="text-lg font-medium hover:text-primary transition-colors">Testimonials</Link>
+                  <Link href="#pricing" className="text-lg font-medium hover:text-primary transition-colors">Pricing</Link>
+                  <Link href="#faq" className="text-lg font-medium hover:text-primary transition-colors">FAQ</Link>
+                  <hr className="my-4" />
+                  <Link href="/login" className="text-lg font-medium hover:text-primary transition-colors">Log in</Link>
+                  <Link href="/signup">
+                    <Button className="w-full">Get Started</Button>
+                  </Link>
+                </div>
+              </SheetContent>
+            </Sheet>
           </div>
         </div>
       </header>

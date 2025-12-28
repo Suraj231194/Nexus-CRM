@@ -75,7 +75,7 @@ const navigation = [
   },
 ];
 
-export function AppSidebar() {
+export function AppSidebar({ className }) {
   const pathname = usePathname();
   const { user, signOut } = useAuth();
 
@@ -95,7 +95,7 @@ export function AppSidebar() {
   const displayInitials = getInitials(displayName);
 
   return (
-    <aside className="h-screen w-64 flex-shrink-0 flex flex-col bg-sidebar border-r border-sidebar-border">
+    <aside className={cn("h-screen w-64 flex-shrink-0 flex flex-col bg-sidebar border-r border-sidebar-border", className)}>
       {/* Logo */}
       <div className="flex items-center gap-3 px-6 py-5 border-b border-sidebar-border">
         <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-primary">

@@ -60,44 +60,25 @@ export default function AIAssistant() {
     }
   }, [messages, isTyping]);
   const handleSend = async () => {
-    if (!input.trim())
-      return;
-    const apiKey = localStorage.getItem("gemini_api_key") || process.env.NEXT_PUBLIC_GEMINI_API_KEY;
-    if (!apiKey) {
-      toast.error("Please configure your Gemini API Key in Settings > AI");
-      setMessages(prev => [...prev, {
-        role: "assistant",
-        content: "I need a Google Gemini API Key to function. Please go to **Settings > AI** to configure it."
-      }]);
-      return;
-    }
+    if (!input.trim()) return;
+
+    // Check for local key override, but don't strictly require it if server env var exists
+    // We'll proceed and let the server check for keys
+    const localApiKey = localStorage.getItem("gemini_api_key");
+
+    // Optimistic UI update
     const userMessage = { role: "user", content: input };
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
     setIsTyping(true);
+
     try {
-      // Dynamic model discovery
-      let modelName = "gemini-1.5-flash";
-      try {
-        const modelsResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey.trim()}`);
-        const modelsData = await modelsResponse.json();
-        if (modelsData.models) {
-          const validModel = modelsData.models.find((m) => m.supportedGenerationMethods?.includes("generateContent") &&
-            (m.name.includes("flash") || m.name.includes("pro")));
-          if (validModel) {
-            modelName = validModel.name.replace("models/", "");
-            console.log("Selected model:", modelName);
-          }
-        }
-      }
-      catch (e) {
-        console.warn("Failed to list models, using default", e);
-      }
-      // Use v1beta as it supports more models and is generally more stable for new models
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey.trim()}`, {
+      const response = await fetch("/api/ai", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          // Pass local key if user set it in settings
+          ...(localApiKey ? { "x-custom-api-key": localApiKey } : {})
         },
         body: JSON.stringify({
           contents: [
@@ -112,29 +93,38 @@ export default function AIAssistant() {
               Answer the user's question based on this data if relevant. Be concise, professional, and helpful.
               If the user asks to draft an email or proposal, do so.
               
-              User Question: ${input}
+              User Question: ${userMessage.content}
               `
               }]
             }
           ]
         })
       });
+
       const data = await response.json();
+
       if (data.error) {
-        console.error("Gemini API Error:", data.error);
+        // Specific handling for missing key to guide user
+        if (data.error.message?.includes("API Key not found")) {
+          setMessages(prev => [...prev, {
+            role: "assistant",
+            content: "I need a Google Gemini API Key to function. Please go to **Settings > AI** OR add `GEMINI_API_KEY` to your Vercel Environment Variables."
+          }]);
+          return;
+        }
         throw new Error(data.error.message || "Failed to generate response");
       }
+
       const aiResponse = data.candidates?.[0]?.content?.parts?.[0]?.text || "I'm sorry, I couldn't generate a response.";
       setMessages((prev) => [...prev, { role: "assistant", content: aiResponse }]);
-    }
-    catch (error) {
+
+    } catch (error) {
       console.error("AI Error:", error);
       setMessages((prev) => [...prev, {
         role: "assistant",
-        content: `I encountered an error: ${error.message}. Please check your API Key in Settings.`
+        content: `Station: ${error.message}. Please check your configuration.`
       }]);
-    }
-    finally {
+    } finally {
       setIsTyping(false);
     }
   };
