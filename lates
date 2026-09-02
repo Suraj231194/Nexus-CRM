@@ -1,0 +1,33 @@
+Use this as a **read-only implementation audit prompt** for Codex:
+
+Audit the implemented **HRMS Annual Calendar & Working Days** functionality against the original requirements.
+
+Do a **read-only, codebase-wide audit** first. Do not modify code.
+
+Verify:
+
+1. **Requirement coverage** — Is the functionality fully implemented as specified?
+2. **Limitations/blockers** — Identify missing functionality, edge cases, technical limitations, or potential blockers.
+3. **ERP standards** — Identify improvements needed to make this production-ready and aligned with standard ERP design.
+4. **Admin/HR capability** — Verify that authorized Admin/HR users can perform all required configuration, lifecycle, finalization, and post-finalization operations.
+5. **Impact analysis** — Verify all impacted components (Calendar, Attendance, Leave, Payroll, Salary, LOP, joining/relieving, proration, reports, DB, APIs, UI, authorization, audit, export, etc.) were correctly identified and changed where required, without unnecessary changes.
+6. **Completeness** — Identify any additional functionality, validation, security, audit, data-integrity, or operational capability required to make this feature complete.
+7. **Implementation quality** — Give your objective assessment of the implementation's correctness, robustness, maintainability, scalability, and suitability for a real ERP system.
+
+For every finding, provide:
+
+* **Severity:** Critical / High / Medium / Low
+* **Finding**
+* **Evidence:** exact file/class/method
+* **Why it matters**
+* **Recommended action**
+
+At the end provide:
+
+* **Overall verdict:** Complete / Mostly Complete / Partially Complete / Not Ready
+* **Requirement coverage estimate (%)**
+* **Top 5 issues to fix**
+* **Top 5 recommended improvements**
+* **Any blockers preventing production use**
+
+Do not assume functionality exists merely because a UI/API is present. Trace the actual end-to-end behavior and verify that the finalized calendar truly acts as the master working calendar across all impacted HRMS components.
