@@ -1,0 +1,25 @@
+4. Quality Control Initiation
+Submission of the Goods Receipt form initiates the quality-control process for the received raw materials
+and packing materials.
+The quality process follows this sequence:
+1. COA Number Generation
+2. Sample Advice Generation
+3. RM/PM COA Generation
+4. COA Number Generation
+The first step is the generation of a Certificate of Analysis (COA) number for the received material.
+Each raw material and packing material has a predefined testing template configured within the RMBM
+system. After the COA number is generated, the relevant product-specific template becomes available to
+the Quality Executive or Quality Officer.
+The responsible quality user completes the required test details in the relevant form.
+6. Sample Advice Generation
+After the initial quality form is completed, the entry moves to Sample Advice Generation.
+The Sample Advice is generated for the received material and records the material submitted for quality
+testing.
+7. RM/PM COA Generation
+Once the Sample Advice process is completed, the entry moves to RM/PM COA Generation.
+At this stage, the final Certificate of Analysis for the Raw Material / Packing Material is generated,
+completing the defined quality process for the incoming material.
+8. Billing Module Update
+After the material is physically received at the facility and the Goods Receipt form is submitted, the
+corresponding entry also appears under Incoming Bills in the Billing module.
+The subsequent Incoming Bills process will continue from this point.
