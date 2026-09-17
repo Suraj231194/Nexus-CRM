@@ -1,0 +1,16 @@
+@⁨Pravin Datir⁩ @⁨Suraj⁩
+
+Working:
+
+* Flow up to Good Issues to Production is working fine.
+* Product selection is working as expected.
+* Only the inventory quantity default value needs to be finalized and updated.
+
+Not Working / Remaining:
+
+* BMR/BPR issue form is currently not working.
+* After BMR/BPR creation, the remaining flow needs to be completed:
+    * BMR: IPCOA → Approval → FGCOA → Approval → Transfer Ticket → Store/SCM
+    * BPR: FGCOA → Approval → Transfer Ticket → Store/SCM
+
+Please refer to the previously shared PDF for the complete flow. Let’s try to close the remaining issues within this week.
